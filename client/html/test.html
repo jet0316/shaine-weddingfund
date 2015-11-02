@@ -8,4 +8,8 @@
 <div ng-repeat="product in products">
 	<h1>{{product.name}}</h1> 
 	<h3>{{product.price}}</h3>
+	<input type="checkbox" ng-model="edit">
+	<div ng-if="edit">
+		<button ng-click="delete(product)">Delete</button>
+	</div>
 </div>

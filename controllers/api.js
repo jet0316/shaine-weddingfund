@@ -2,18 +2,16 @@ var Product = require('../models/product')
 
 var apiController = {
 	post: function(req, res){
-		console.log(req.body)
-		// var newProduct = new Product({
-		// 	name: req.body.name,
-		// 	price: req.body.price		
-		// })
+		// console.log(req.body)
+		var newProduct = new Product({
+			name: req.body.name,
+			price: req.body.price		
+		})
 
-		// newProduct.save(function(err, response){
-		// 	res.send(response)
-		// })
+		newProduct.save(function(err, response){
+			res.send(response)
+		})
 		// console.log('done')
-
-		// res.send('its working')
 	},
 
 	get: function(req, res){
@@ -31,9 +29,9 @@ var apiController = {
 
 	delete: function(req, res){
 		console.log(req.params.id)
-		// Product.remove({_id: req.params.id}, function(err, response){
-		// 		res.send(response)
-		// 	});
+		Product.remove({_id: req.params.id}, function(err, response){
+				res.send(response)
+			});
 	}
 };
 

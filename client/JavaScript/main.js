@@ -40,6 +40,7 @@ master.controller('test', function($scope, $http, productFactory){
 
 	$scope.products = productFactory.products
 
+
 	//========= Instead of using a factory, you can make a regular http request to any route ======//
 	// $http.get('/api/product')
 	// 		.then(function(response){
@@ -47,6 +48,7 @@ master.controller('test', function($scope, $http, productFactory){
 	// 			$scope.products = response.data
 	// 		});
 	//============================================================================================//
+
 
 	$scope.post = function(){
 		
@@ -70,7 +72,19 @@ master.controller('test', function($scope, $http, productFactory){
 		// 				});
 		// 	})
 		$scope.product = {}
+
 	};
+
+	$scope.delete = function(product){
+
+		
+		$http.delete('api/product/' + product._id).then(function(response){
+			$http.get('api/product').then(function(response){
+				console.log(response)
+				$scope.products = response.data
+			})
+		})
+	}
 });
 
 
