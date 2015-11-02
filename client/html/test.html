@@ -1,0 +1,11 @@
+<form ng-submit="post()">
+	<input placeholder="Name", ng-model="product.name">
+	<input placeholder="Price", ng-model="product.price">
+	<input type="file" ng-model="product.song" id="file">
+	<input type="submit">
+</form>
+
+<div ng-repeat="product in products">
+	<h1>{{product.name}}</h1> 
+	<h3>{{product.price}}</h3>
+</div>
