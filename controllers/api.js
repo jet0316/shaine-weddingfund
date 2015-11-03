@@ -2,7 +2,6 @@ var Product = require('../models/product')
 
 var apiController = {
 	post: function(req, res){
-		// console.log(req.body)
 		var newProduct = new Product({
 			name: req.body.name,
 			price: req.body.price		
@@ -11,7 +10,6 @@ var apiController = {
 		newProduct.save(function(err, response){
 			res.send(response)
 		})
-		// console.log('done')
 	},
 
 	get: function(req, res){
@@ -25,6 +23,26 @@ var apiController = {
 				res.send(response)
 			})
 		}
+	},
+
+	put: function(req, res){
+		console.log(req.body)
+		if(req.body.price === undefined || req.body.price === ""){
+			Product.update({_id: req.params.id}, {$set: {name: req.body.name}}, function(err, response){
+			});	
+		}
+		else if(req.body.name === undefined || req.body.name === ""){
+			Product.update({_id: req.params.id}, {$set: {price: req.body.price}}, function(err, response){
+			});	
+		}
+		else{
+			Product.update({_id: req.params.id}, {$set: {name: req.body.name, price: req.body.price}}, function(err, response){
+			});	
+		}
+
+		Product.find(function(err, response){
+					res.send(response)
+		});
 	},
 
 	delete: function(req, res){

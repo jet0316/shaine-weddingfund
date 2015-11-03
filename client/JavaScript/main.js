@@ -36,19 +36,23 @@ master.factory('productFactory', function($resource){
 });
 
 
-master.controller('test', function($scope, $http, productFactory){
+master.controller('test', function($scope, $http, $rootScope, productFactory){
 
+	// $scope.toggle = false
 	$scope.products = productFactory.products
+	$scope.update = {}
 
 
 	//========= Instead of using a factory, you can make a regular http request to any route ======//
-	// $http.get('/api/product')
-	// 		.then(function(response){
-	// 			console.log(response.data)
-	// 			$scope.products = response.data
-	// 		});
+	$http.get('/api/product')
+			.then(function(response){
+				$scope.products = response.data
+			});
 	//============================================================================================//
 
+	// $scope.switch = function(){
+	// 	$scope.toggle = true
+	// };
 
 	$scope.post = function(){
 		
@@ -58,6 +62,8 @@ master.controller('test', function($scope, $http, productFactory){
 		// this saves the new instance of the factory and pushes the return data back into the factory model so the front end updates instantly
 		newProduct.$save(function(response){
 			productFactory.products.push(response)
+			$scope.products = productFactory.products
+
 		})
 		console.log($scope.product)
 
@@ -74,17 +80,26 @@ master.controller('test', function($scope, $http, productFactory){
 		$scope.product = {}
 
 	};
+	$scope.edit = function(product, index){
+		var send = $scope.update
+		$http.put('api/product/' + product._id, send).then(function(response){
+			$scope.products = response.data
+		})
+		$scope.update = {}
+	};
 
-	$scope.delete = function(product){
 
-		
+	$scope.delete = function(product, index){
+
 		$http.delete('api/product/' + product._id).then(function(response){
 			$http.get('api/product').then(function(response){
 				console.log(response)
 				$scope.products = response.data
+
 			})
 		})
-	}
+	};
+
 });
 
 

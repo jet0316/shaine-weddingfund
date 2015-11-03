@@ -25,11 +25,12 @@ app.get('/', function(req, res){
 });
 
 //======== requiring api contrtoller ========//
-var apiController = require('./controllers/api.js')
+var apiController = require('./controllers/api.js');
 
 //======= api routes =========//
 app.post('/api/product', apiController.post)
 app.get('/api/product', apiController.get)
+app.put('/api/product/:id', apiController.put)
 app.get('/api/product/:id', apiController.get)
 app.delete('/api/product/:id', apiController.delete)
 
