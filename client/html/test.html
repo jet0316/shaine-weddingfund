@@ -1,24 +1,30 @@
-<form ng-submit="post()">
-	<input placeholder="Name", ng-model="product.name">
-	<input placeholder="Price", ng-model="product.price">
-	<input type="file" ng-model="product.song" id="file">
-	<input type="submit">
-</form>
+<div class="row">
+	<form ng-submit="post()">
+		<input placeholder="Name", ng-model="product.name">
+		<input placeholder="Price", ng-model="product.price">
+		<input placeholder="Image URL", ng-model="product.image">
+		<input type="submit">
+	</form>
+	<div class="col-md-4", ng-repeat="product in products">
+		<br>
+		<hr>
+		<h1>{{product.name}}</h1>
+		<a href="#/product/{{product._id}}">
+			<img ng-src="{{product.image}}", class="product_image"> 
+		</a>
+		<h3>{{product.price | currency}}</h3>
+		<input type="checkbox", ng-model="toggle">
 
-<div ng-repeat="product in products">
-	<h1>{{product.name}}</h1> 
-	<h3>{{product.price | currency}}</h3>
-	<input type="checkbox", ng-model="toggle">
+		<div ng-if="toggle">
 
-	<div ng-if="toggle">
+			<form ng-submit="edit(product, $index)">
+				<input placeholder="Name", ng-model="update.name">
+				<input placeholder="Price", ng-model="update.price">
+				<input type="submit">
+			</form>
 
-		<form ng-submit="edit(product, $index)">
-			<input placeholder="Name", ng-model="update.name">
-			<input placeholder="Price", ng-model="update.price">
-			<input type="submit">
-		</form>
+			<button ng-click="delete(product, $index)">Delete</button>
 
-		<button ng-click="delete(product, $index)">Delete</button>
-
+		</div>
 	</div>
 </div>

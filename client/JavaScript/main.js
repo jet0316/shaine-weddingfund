@@ -39,8 +39,9 @@ master.factory('productFactory', function($resource){
 master.controller('test', function($scope, $http, $rootScope, productFactory){
 
 	// $scope.toggle = false
-	$scope.products = productFactory.products
+	// $scope.products = productFactory.products
 	$scope.update = {}
+	// console.log($scope.products)
 
 
 	//========= Instead of using a factory, you can make a regular http request to any route ======//
@@ -57,26 +58,26 @@ master.controller('test', function($scope, $http, $rootScope, productFactory){
 	$scope.post = function(){
 		
 		// this makes a new instance of the factory, passing in the data this.product
-		var newProduct = new productFactory.model(this.product)
+		// var newProduct = new productFactory.model(this.product)
 		
-		// this saves the new instance of the factory and pushes the return data back into the factory model so the front end updates instantly
-		newProduct.$save(function(response){
-			productFactory.products.push(response)
-			$scope.products = productFactory.products
+		// // this saves the new instance of the factory and pushes the return data back into the factory model so the front end updates instantly
+		// newProduct.$save(function(response){
+		// 	productFactory.products.push(response)
+		// 	$scope.products = productFactory.products
 
-		})
-		console.log($scope.product)
+		// })
+		// console.log($scope.product)
 
 		//=========== another way instead of using the factory =======//
 		// you can use this.property or $scope.product
-		// $http.post('/api/product', this.product)
-		// 	.then(function(response){
-		// 		$http.get('/api/product')
-		// 				.then(function(response){
-		// 					console.log(response.data)
-		// 					$scope.products = response.data
-		// 				});
-		// 	})
+		$http.post('/api/product', this.product)
+			.then(function(response){
+				$http.get('/api/product')
+						.then(function(response){
+							console.log(response.data)
+							$scope.products = response.data
+						});
+			})
 		$scope.product = {}
 
 	};
@@ -93,7 +94,7 @@ master.controller('test', function($scope, $http, $rootScope, productFactory){
 
 		$http.delete('api/product/' + product._id).then(function(response){
 			$http.get('api/product').then(function(response){
-				console.log(response)
+				// console.log(response)
 				$scope.products = response.data
 
 			})

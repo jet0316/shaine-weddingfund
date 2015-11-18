@@ -2,9 +2,11 @@ var Product = require('../models/product')
 
 var apiController = {
 	post: function(req, res){
+		// console.log(req.body)
 		var newProduct = new Product({
 			name: req.body.name,
-			price: req.body.price		
+			price: req.body.price,
+			image: req.body.image	
 		})
 
 		newProduct.save(function(err, response){
@@ -26,7 +28,7 @@ var apiController = {
 	},
 
 	put: function(req, res){
-		console.log(req.body)
+		
 		if(req.body.price === undefined || req.body.price === ""){
 			Product.update({_id: req.params.id}, {$set: {name: req.body.name}}, function(err, response){
 			});	
@@ -46,7 +48,6 @@ var apiController = {
 	},
 
 	delete: function(req, res){
-		console.log(req.params.id)
 		Product.remove({_id: req.params.id}, function(err, response){
 				res.send(response)
 			});
