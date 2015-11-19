@@ -8,20 +8,13 @@
 	<div class="col-md-4", ng-repeat="product in products">
 		<br>
 		<hr>
-		<h1>{{product.name}}</h1>
+		<h1>{{product.name | uppercase}}</h1>
 		<a href="#/product/{{product._id}}", ng-click="toggleSwitch()">
 			<img ng-src="{{product.image}}", class="product_image"> 
 		</a>
 		<h3>{{product.price | currency}}</h3>
 		<h4>Edit Info</h4>
-		<!-- Squared ONE -->
-
-		<div class="squaredOne">
-			<input type="checkbox" value="None" id="squaredOne" ng-model="toggle">
-			<label for="squaredOne"></label>
-		</div>
-
-		<!-- <input type="checkbox", ng-model="toggle"> -->
+		<input type="checkbox", ng-model="toggle">
 		<div class="edit_toggle", ng-if="toggle">
 
 			<form ng-submit="edit(product, $index)">
