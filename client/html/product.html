@@ -1,0 +1,6 @@
+<a href="#/", ng-click="toggleSwitch()">Home</a>
+<div ng-repeat="product in products">
+	<h2>{{product.name}}</h2>
+	<img ng-src="{{product.image}}">
+	<h3>{{product.price | currency}}</h3>
+</div>

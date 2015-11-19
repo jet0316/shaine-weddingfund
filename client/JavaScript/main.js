@@ -2,11 +2,17 @@ var master = angular.module('master', ['ngResource', 'ngRoute', 'ngAnimate']);
 
 console.log('Module working')
 
+
 master.config(function($routeProvider){
 	$routeProvider
 		.when('/', {
 			templateUrl : '/html/test.html',
 			controller  : 'test'
+		})
+	$routeProvider
+		.when('/product/:ID', {
+			templateUrl : '/html/product.html',
+			controller  : 'product'
 		})
 });
 
@@ -37,7 +43,6 @@ master.factory('productFactory', function($resource){
 
 
 master.controller('test', function($scope, $http, $rootScope, productFactory){
-
 	// $scope.toggle = false
 	// $scope.products = productFactory.products
 	$scope.update = {}
@@ -55,6 +60,9 @@ master.controller('test', function($scope, $http, $rootScope, productFactory){
 	// 	$scope.toggle = true
 	// };
 
+	$scope.toggleSwitch = function(){
+		console.log('hioh')
+	}
 	$scope.post = function(){
 		
 		// this makes a new instance of the factory, passing in the data this.product
@@ -103,6 +111,14 @@ master.controller('test', function($scope, $http, $rootScope, productFactory){
 
 });
 
+
+master.controller('product', function($scope, $routeParams, $http){
+	// console.log($routeParams.ID)
+	$http.get('api/product/' + $routeParams.ID).then(function(response){
+		$scope.products = response.data
+		console.log($scope.products)
+	})
+})
 
 
 
